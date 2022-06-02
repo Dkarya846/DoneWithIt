@@ -13,8 +13,6 @@ const useApi = (apiFunc) => {
         setError(!response.ok);
         setData(response.data);
 
-        if (!response.ok) return response;
-
         return response;
     };
 
