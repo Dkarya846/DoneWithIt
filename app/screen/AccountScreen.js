@@ -5,6 +5,10 @@ import Screen from "../components/Screen";
 import colors from "../config/colors";
 
 import { ListItem, ListItemSeparator } from "../components/list";
+import { useContext } from "react";
+import AuthContext from "../auth/context";
+import authStorage from "../auth/storage";
+import useAuth from "../auth/useAuth";
 
 const menuItems = [
     {
@@ -26,13 +30,15 @@ const menuItems = [
 ];
 
 const AccountScreen = ({ navigation }) => {
+    const { user, logOut } = useAuth();
+
     return (
         <Screen style={styles.screen}>
             {/* User Details */}
             <View style={styles.container}>
                 <ListItem
-                    title="Mosh Hamedani"
-                    subTitle="programmingwithmosh@gmail.com"
+                    title={user.name}
+                    subTitle={user.email}
                     image={require("../assets/mosh.jpg")}
                 />
             </View>
@@ -63,6 +69,7 @@ const AccountScreen = ({ navigation }) => {
             <ListItem
                 title="Logout"
                 IconComponent={<Icon name="logout" backgroundColor="#ffe66d" />}
+                onPress={logOut}
             />
         </Screen>
     );

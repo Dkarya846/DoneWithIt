@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { StyleSheet, View } from "react-native";
 
 const useApi = (apiFunc) => {
     const [data, setData] = useState([]);
@@ -11,17 +10,15 @@ const useApi = (apiFunc) => {
         const response = await apiFunc(...params);
         setLoading(false);
 
-        if (!response.ok) return setError(true);
-
-        setError(false);
+        setError(!response.ok);
         setData(response.data);
+
+        if (!response.ok) return response;
+
+        return response;
     };
 
     return { data, error, loading, request };
 };
-
-const styles = StyleSheet.create({
-    container: {},
-});
 
 export default useApi;

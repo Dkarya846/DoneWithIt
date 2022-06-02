@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { Image } from "react-native-expo-image-cache";
+
 import AppText from "../components/AppText";
 import ListItem from "../components/list/ListItem";
 import colors from "../config/colors";
@@ -10,7 +12,8 @@ const ListingDetailsScreen = ({ route }) => {
         <View>
             <Image
                 style={styles.image}
-                source={{ uri: listing.images[0].url }}
+                uri={listing.images[0].url}
+                defaultSource={{ uri: listing.images[0].url }}
             />
 
             <View style={styles.detailsContainer}>

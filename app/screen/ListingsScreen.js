@@ -41,29 +41,38 @@ const ListingsScreen = ({ navigation }) => {
     }, []);
 
     return (
-        <Screen style={styles.screen}>
-            {getListingApi.error && (
-                <>
-                    <AppText>Could not retrieve the listings.</AppText>
-                    <AppButton title="Retry" onPress={getListingApi.request} />
-                </>
-            )}
+        <>
             <ActivityIndicator visible={getListingApi.loading} />
-            <FlatList
-                data={getListingApi.data}
-                keyExtractor={(listing) => listing.id.toString()}
-                renderItem={({ item }) => (
-                    <Card
-                        title={item.title}
-                        subTitle={"$ " + item.price}
-                        imageUrl={item.images[0].url}
-                        onPress={() =>
-                            navigation.navigate(routes.LISTING_DETAILS, item)
-                        }
-                    />
+            <Screen style={styles.screen}>
+                {getListingApi.error && (
+                    <>
+                        <AppText>Could not retrieve the listings.</AppText>
+                        <AppButton
+                            title="Retry"
+                            onPress={getListingApi.request}
+                        />
+                    </>
                 )}
-            />
-        </Screen>
+                <FlatList
+                    data={getListingApi.data}
+                    keyExtractor={(listing) => listing.id.toString()}
+                    renderItem={({ item }) => (
+                        <Card
+                            title={item.title}
+                            subTitle={"$ " + item.price}
+                            imageUrl={item.images[0].url}
+                            onPress={() =>
+                                navigation.navigate(
+                                    routes.LISTING_DETAILS,
+                                    item
+                                )
+                            }
+                            thumbnailUrl={item.images[0].thumbnailUrl}
+                        />
+                    )}
+                />
+            </Screen>
+        </>
     );
 };
 
